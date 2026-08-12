@@ -1,6 +1,7 @@
 import urllib.request
 import urllib.parse
 import json
+import time
 
 BASE_URL = "http://127.0.0.1:8000"
 
@@ -42,7 +43,17 @@ def main():
     doc_id = upload_res["document_id"]
     print(f"[OK] POST /documents/upload created document ID: {doc_id}")
 
-    # 3. Test Drafts Endpoint
+    # 3. Test Drafts Endpoint and Wait for Background Pipeline Completion
+    print("Waiting for async background pipeline to complete STT & NLP filtering...")
+    for _ in range(30):
+        time.sleep(1)
+        doc_info = get(f"/documents/{doc_id}")
+        if doc_info["status"] == "DRAFT":
+            print(f"[OK] Background pipeline finished! Document is now DRAFT.")
+            break
+    else:
+        print(f"[WARN] Pipeline took longer than expected; current status: {doc_info['status']}")
+
     drafts = get("/documents/drafts", headers={"X-User-Id": alice['id']})
     print(f"[OK] GET /documents/drafts found {len(drafts)} drafts for Alice")
 
