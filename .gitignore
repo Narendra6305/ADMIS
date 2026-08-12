@@ -1,0 +1,35 @@
+# Environment & Secrets
+.env
+*.env
+*.env.local
+
+# Databases & Local SQLite
+*.db
+*.sqlite
+*.sqlite3
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+.venv/
+
+# Node & Dependencies
+node_modules/
+dist/
+build/
+.output/
+
+# Logs & Media Storage
+logs/
+*.log
+storage/media/*
+!storage/media/.gitkeep
+backend/storage/media/*
+!backend/storage/media/.gitkeep
+backend/logs/
+
+# IDE & OS
+.DS_Store
+Thumbs.db
