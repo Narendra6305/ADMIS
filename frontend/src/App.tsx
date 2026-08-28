@@ -7,7 +7,6 @@ import { UserSwitcher } from './components/UserSwitcher';
 import { DocumentCard } from './components/DocumentCard';
 import { DocumentDetailModal } from './components/DocumentDetailModal';
 import { UploadModal } from './components/UploadModal';
-import { LogViewerModal } from './components/LogViewerModal';
 
 import {
   Inbox,
@@ -20,7 +19,6 @@ import {
   Zap,
   CheckCircle2,
   ShieldCheck,
-  Terminal,
 } from 'lucide-react';
 
 export default function App() {
@@ -36,7 +34,6 @@ export default function App() {
 
   const [selectedDoc, setSelectedDoc] = useState<DocumentItem | null>(null);
   const [isUploadOpen, setIsUploadOpen] = useState(false);
-  const [isLogsOpen, setIsLogsOpen] = useState(false);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
 
   const showToast = (msg: string) => {
@@ -305,14 +302,6 @@ export default function App() {
                 {systemStatus.llm_connected ? `Connected (${systemStatus.llm_provider || 'Mistral'})` : 'Not Connected'}
               </span>
             </div>
-
-            <button
-              onClick={() => setIsLogsOpen(true)}
-              className="w-full mt-2 py-2 px-3 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-800 text-xs font-semibold text-slate-300 hover:text-cyan-300 transition flex items-center justify-center gap-2"
-            >
-              <Terminal className="w-3.5 h-3.5 text-cyan-400" />
-              View System Logs
-            </button>
           </div>
         </aside>
 
@@ -437,11 +426,6 @@ export default function App() {
         onUploadSuccess={loadData}
       />
 
-      {/* System Logs Viewer Modal */}
-      <LogViewerModal
-        isOpen={isLogsOpen}
-        onClose={() => setIsLogsOpen(false)}
-      />
     </div>
   );
 }
